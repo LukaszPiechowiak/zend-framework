@@ -1,17 +1,19 @@
 {
-    "name": "digital-canvas/zend-framework",
+    "name": "LukaszPiechowiak/zend-framework",
     "type": "library",
-    "description": "Zend Framework with only the libraries and require_once() calls commented out for better performance with an autoloader." ,
+    "description": "Zend Framework compatible with PHP 7.2." ,
     "keywords": [
         "zend framework",
         "zf",
         "zf1",
-        "zend"
+        "zend",
+        "php7",
+        "php7.2"
     ],
-    "homepage": "https://github.com/digital-canvas/zend-framework",
+    "homepage": "https://github.com/LukaszPiechowiak/zend-framework",
 	"license": "BSD-3-Clause",
     "require": {
-        "php": ">=5.2.11"
+        "php": ">=7.2"
     },
     "include-path": ["library/"],
     "autoload": {
