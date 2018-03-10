@@ -1,5 +1,5 @@
 {
-    "name": "LukaszPiechowiak/zend-framework",
+    "name": "lukasz-piechowiak/zend-framework",
     "type": "library",
     "description": "Zend Framework compatible with PHP 7.2." ,
     "keywords": [
