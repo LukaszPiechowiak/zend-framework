@@ -1238,7 +1238,7 @@ abstract class Zend_Db_Table_Abstract {
             if (is_array($keyValues)) {
                 $keyValuesCount = count($keyValues);
             } else {
-                $keyValuesCount = --$keyValues;
+                $keyValuesCount = $keyValues;
             }
             // Coerce the values to an array.
             // Don't simply typecast to array, because the values
