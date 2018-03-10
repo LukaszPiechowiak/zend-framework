@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,15 +21,14 @@
  * @version    $Id$
  */
 
-
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend
-{
+class Zend_Cache_Backend {
+
     /**
      * Frontend or Core directives
      *
@@ -43,8 +43,8 @@ class Zend_Cache_Backend
      */
     protected $_directives = array(
         'lifetime' => 3600,
-        'logging'  => false,
-        'logger'   => null
+        'logging' => false,
+        'logger' => null
     );
 
     /**
@@ -59,8 +59,7 @@ class Zend_Cache_Backend
      *
      * @param  array $options Associative array of options
      */
-    public function __construct(array $options = array())
-    {
+    public function __construct(array $options = array()) {
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
@@ -73,10 +72,12 @@ class Zend_Cache_Backend
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function setDirectives($directives)
-    {
-        if (!is_array($directives)) Zend_Cache::throwException('Directives parameter must be an array');
-        while (list($name, $value) = each($directives)) {
+    public function setDirectives($directives) {
+        if (!is_array($directives)) {
+            Zend_Cache::throwException('Directives parameter must be an array');
+        }
+
+        foreach ($directives as $name => $value) {
             if (!is_string($name)) {
                 Zend_Cache::throwException("Incorrect option name : $name");
             }
@@ -84,7 +85,6 @@ class Zend_Cache_Backend
             if (array_key_exists($name, $this->_directives)) {
                 $this->_directives[$name] = $value;
             }
-
         }
 
         $this->_loggerSanity();
@@ -98,8 +98,7 @@ class Zend_Cache_Backend
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function setOption($name, $value)
-    {
+    public function setOption($name, $value) {
         if (!is_string($name)) {
             Zend_Cache::throwException("Incorrect option name : $name");
         }
@@ -116,8 +115,7 @@ class Zend_Cache_Backend
      * @throws Zend_Cache_Exceptions
      * @return mixed
      */
-    public function getOption($name)
-    {
+    public function getOption($name) {
         $name = strtolower($name);
 
         if (array_key_exists($name, $this->_options)) {
@@ -140,8 +138,7 @@ class Zend_Cache_Backend
      * @param  int $specificLifetime
      * @return int Cache life time
      */
-    public function getLifetime($specificLifetime)
-    {
+    public function getLifetime($specificLifetime) {
         if ($specificLifetime === false) {
             return $this->_directives['lifetime'];
         }
@@ -156,8 +153,7 @@ class Zend_Cache_Backend
      * @deprecated
      * @return boolean
      */
-    public function isAutomaticCleaningAvailable()
-    {
+    public function isAutomaticCleaningAvailable() {
         return true;
     }
 
@@ -169,13 +165,12 @@ class Zend_Cache_Backend
      * @return string
      * @throws Zend_Cache_Exception if unable to determine directory
      */
-    public function getTmpDir()
-    {
+    public function getTmpDir() {
         $tmpdir = array();
         foreach (array($_ENV, $_SERVER) as $tab) {
             foreach (array('TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot') as $key) {
                 if (isset($tab[$key]) && is_string($tab[$key])) {
-                    if (($key == 'windir') or ($key == 'SystemRoot')) {
+                    if (($key == 'windir') or ( $key == 'SystemRoot')) {
                         $dir = realpath($tab[$key] . '\\temp');
                     } else {
                         $dir = realpath($tab[$key]);
@@ -223,8 +218,7 @@ class Zend_Cache_Backend
      * @param string $dir temporary directory
      * @return boolean true if the directory is ok
      */
-    protected function _isGoodTmpDir($dir)
-    {
+    protected function _isGoodTmpDir($dir) {
         if (is_readable($dir)) {
             if (is_writable($dir)) {
                 return true;
@@ -241,8 +235,7 @@ class Zend_Cache_Backend
      * @throws Zend_Cache_Exception
      * @return void
      */
-    protected function _loggerSanity()
-    {
+    protected function _loggerSanity() {
         if (!isset($this->_directives['logging']) || !$this->_directives['logging']) {
             return;
         }
@@ -270,8 +263,7 @@ class Zend_Cache_Backend
      * @param  int    $priority
      * @return void
      */
-    protected function _log($message, $priority = 4)
-    {
+    protected function _log($message, $priority = 4) {
         if (!$this->_directives['logging']) {
             return;
         }
@@ -285,4 +277,5 @@ class Zend_Cache_Backend
         }
         $logger->log($message, $priority);
     }
+
 }
