@@ -1235,23 +1235,20 @@ abstract class Zend_Db_Table_Abstract {
         $whereList = array();
         $numberTerms = 0;
         foreach ($args as $keyPosition => $keyValues) {
-            if (is_array($keyValues)) {
-                $keyValuesCount = count($keyValues);
-            } else {
-                $keyValuesCount = $keyValues;
-            }
             // Coerce the values to an array.
             // Don't simply typecast to array, because the values
             // might be Zend_Db_Expr objects.
             if (!is_array($keyValues)) {
                 $keyValues = array($keyValues);
             }
+            $keyValuesCount = count($keyValues);
             if ($numberTerms == 0) {
                 $numberTerms = $keyValuesCount;
             } else if ($keyValuesCount != $numberTerms) {
                 // require_once 'Zend/Db/Table/Exception.php';
                 throw new Zend_Db_Table_Exception("Missing value(s) for the primary key");
             }
+
             $keyValues = array_values($keyValues);
             for ($i = 0; $i < $keyValuesCount; ++$i) {
                 if (!isset($whereList[$i])) {
